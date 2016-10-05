@@ -1,6 +1,3 @@
-// Cargar Jquery local si fuera de linea.
-if (!window.jQuery) { document.write('<script src="JavaScript/jquery.min.js"></script>'); }
-
 // Cargar hoja de estilo si esta fuera de linea.
 /*
 (function($) {

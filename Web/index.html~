@@ -4,9 +4,7 @@
         <title>Inicio</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="Partes/w3.css">
-        <link rel="stylesheet" href="Partes/normalize.css">
-        <!-- <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css"> -->
+         <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
     </head>
     <body>
         <div id="Navegacion"></div>
@@ -42,8 +40,12 @@
                 </ul>
             </div>
         </div>
-        <img src="Imagenes/MapaITT.jpg" alt="Mapa Tecnologico" style="width:100%">
+        <!-- <img src="Imagenes/MapaITT.jpg" alt="Mapa Tecnologico" style="width:100%"> -->
     </body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
+    <script>
+    // Cargar Jquery local si fuera de linea.
+    window.jQuery || document.write('<script src="JavaScript/jquery.min.js">\x3c/script>')
+    </script>
     <script src="JavaScript/Funciones.js"></script>
 </html>
