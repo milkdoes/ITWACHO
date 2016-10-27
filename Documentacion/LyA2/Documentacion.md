@@ -57,8 +57,17 @@ Debido al proyecto sera aplicado a una institucion educativa (y para fines de in
 
 Con el costo y el tiempo a invertir, se puede hacer los calculos:  
 
-10 horas por semana x 5 meses = 200 horas de completacion.
-200 horas x $15 dolares por hora = $3000 dolares por completacion.
+10 horas por semana x 5 meses = 200 horas para terminar.
+200 horas x $15 dolares por hora = $3000 dolares por desarrollo completo.
+
+Los gastos incluyendo el mantenimiento del proyecto siendo:  
+
+Actividad | Costo (dolares)
+--------- | ---------------
+Desarrollo | $3000.00
+Servidor | $500.00
+Soporte Tecnico | Variado (No se cubre)
+Recursos (Electricidad, componentes de reemplazo, etcetera) | Variado (No se cubre)
 
 # Marco Teórico
 Se pretende desarrollar un software que pueda ser aplicado en

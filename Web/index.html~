@@ -4,29 +4,36 @@
         <title>Inicio</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-         <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+        <link rel="stylesheet" href="Partes/w3.css">
     </head>
     <body>
         <div id="Navegacion"></div>
         <br />
-        <div id="Nombres" class="w3-row-padding">
-            <div class="w3-half">
-                <input class="w3-input w3-border" type="text" placeholder="Nombre">
+        <form>
+            <div id="Nombres" class="w3-row-padding">
+                <div class="w3-half">
+                    <input class="w3-input w3-border" type="text" placeholder="Nombre">
+                </div>
+                <div class="w3-half">
+                    <input class="w3-input w3-border" type="text" placeholder="Segundo Nombre">
+                </div>
             </div>
-            <div class="w3-half">
-                <input class="w3-input w3-border" type="text" placeholder="Segundo Nombre">
+            <div id="Apellidos" class="w3-row-padding">
+                <div class="w3-half">
+                    <input class="w3-input w3-border" type="text" placeholder="Apellido Paterno">
+                </div>
+                <div class="w3-half">
+                    <input class="w3-input w3-border" type="text" placeholder="Apellido Materno">
+                </div>
             </div>
+            <br />
+            <input class="w3-btn w3-large w3-green" type="submit" value="Buscar a un ente">
+        </form>
+        <br /><br />
+        <div>
+            <ul id="Personas" class="w3-ul" style="height:130px; overflow:hidden; overflow-y:scroll;">
+            </ul>
         </div>
-        <div id="Apellidos" class="w3-row-padding">
-            <div class="w3-half">
-                <input class="w3-input w3-border" type="text" placeholder="Apellido Paterno">
-            </div>
-            <div class="w3-half">
-                <input class="w3-input w3-border" type="text" placeholder="Apellido Materno">
-            </div>
-        </div>
-        <br />
-        <button class="w3-btn w3-large w3-green">Buscar a un ente</button>
         <br /><br />
         <div id="Informacion" class="w3-row-padding">
             <div class="w3-half">
@@ -44,8 +51,8 @@
     </body>
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
     <script>
-    // Cargar Jquery local si fuera de linea.
-    window.jQuery || document.write('<script src="JavaScript/jquery.min.js">\x3c/script>')
-    </script>
-    <script src="JavaScript/Funciones.js"></script>
+// Cargar Jquery local si fuera de linea.
+window.jQuery || document.write('<script src="JavaScript/jquery.min.js">\x3c/script>')
+</script>
+<script src="JavaScript/Funciones.js"></script>
 </html>
