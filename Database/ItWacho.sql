@@ -4,6 +4,19 @@ GO
 USE ItWacho;
 GO
 
+CREATE LOGIN UsuarioItWacho WITH PASSWORD = 'UsuarioItWacho'
+GO
+
+USE ItWacho;
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = N'UsuarioItWacho')
+BEGIN
+    CREATE USER [UsuarioItWacho] FOR LOGIN [UsuarioItWacho]
+    EXEC sp_addrolemember N'db_owner', N'UsuarioItWacho'
+END;
+GO
+
 -- TABLAS
 CREATE TABLE Ente
 (
@@ -52,6 +65,25 @@ GO
 --GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.ROUTINES
+WHERE ROUTINE_NAME = 'SP_InsertEnte'
+AND ROUTINE_SCHEMA = 'dbo' AND ROUTINE_TYPE = 'PROCEDURE')
+EXEC ('DROP PROCEDURE dbo.SP_InsertEnte');
+GO
+
+CREATE PROCEDURE dbo.SP_InsertEnte @Nombre varchar(40) = NULL
+, @ApellidoPaterno varchar(20) = NULL, @ApellidoMaterno varchar(20) = NULL
+AS
+BEGIN
+	IF (@Nombre IS NOT NULL OR @ApellidoPaterno IS NOT NULL
+	OR @ApellidoMaterno IS NOT NULL)
+	BEGIN
+		INSERT INTO Ente (Nombre, ApellidoPaterno, ApellidoMaterno) VALUES
+		(@Nombre, @ApellidoPaterno, @ApellidoMaterno);
+	END
+END
+GO
+
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.ROUTINES
 WHERE ROUTINE_NAME = 'SP_SelectEnte'
 AND ROUTINE_SCHEMA = 'dbo' AND ROUTINE_TYPE = 'PROCEDURE')
 EXEC ('DROP PROCEDURE dbo.SP_SelectEnte');
@@ -62,11 +94,16 @@ CREATE PROCEDURE dbo.SP_SelectEnte @Nombre varchar(40) = NULL
 , @ApellidoPaterno varchar(20) = NULL, @ApellidoMaterno varchar(20) = NULL
 AS
 BEGIN
-    SELECT Nombre, ApellidoPaterno AS [Apellido Paterno]
-    , ApellidoMaterno AS [Apellido Materno]
-    WHERE Name LIKE @Nombre
-    OR ApellidoPaterno LIKE @ApellidoPaterno
-    OR ApellidoMaterno LIKE @ApellidoMaterno
+	IF (@Nombre IS NOT NULL OR @ApellidoPaterno IS NOT NULL
+	OR @ApellidoMaterno IS NOT NULL)
+	BEGIN
+		SELECT e.Nombre, e.ApellidoPaterno AS [Apellido Paterno]
+		, e.ApellidoMaterno AS [Apellido Materno]
+		FROM Ente e
+		WHERE e.Nombre LIKE @Nombre
+		OR e.ApellidoPaterno LIKE @ApellidoPaterno
+		OR e.ApellidoMaterno LIKE @ApellidoMaterno
+	END
 END
 GO
 

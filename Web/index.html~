@@ -9,14 +9,10 @@
     <body>
         <div id="Navegacion"></div>
         <br />
+
         <form>
             <div id="Nombres" class="w3-row-padding">
-                <div class="w3-half">
                     <input class="w3-input w3-border" type="text" placeholder="Nombre">
-                </div>
-                <div class="w3-half">
-                    <input class="w3-input w3-border" type="text" placeholder="Segundo Nombre">
-                </div>
             </div>
             <div id="Apellidos" class="w3-row-padding">
                 <div class="w3-half">
@@ -31,28 +27,25 @@
         </form>
         <br /><br />
         <div>
+            <label>Encontrados (Seleccionar):</label>
             <ul id="Personas" class="w3-ul" style="height:130px; overflow:hidden; overflow-y:scroll;">
             </ul>
         </div>
         <br /><br />
         <div id="Informacion" class="w3-row-padding">
             <div class="w3-half">
-                Lugares:
+                <label>Lugares:</label>
                 <ul id="Lugares" class="w3-ul" style="height:130px; overflow:hidden; overflow-y:scroll;">
                 </ul>
             </div>
             <div class="w3-half">
-                Actividades:
+                <label>Actividades:</label>
                 <ul id="Actividades" class="w3-ul" style="height:130px; overflow:hidden; overflow-y:scroll;">
                 </ul>
             </div>
         </div>
         <!-- <img src="Imagenes/MapaITT.jpg" alt="Mapa Tecnologico" style="width:100%"> -->
     </body>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
-    <script>
-// Cargar Jquery local si fuera de linea.
-window.jQuery || document.write('<script src="JavaScript/jquery.min.js">\x3c/script>')
-</script>
-<script src="JavaScript/Funciones.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/Funciones.js"></script>
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Inicio</title>
+        <title>Introducir Informacion</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="Partes/w3.css">
@@ -10,29 +10,29 @@
         <div id="Navegacion"></div>
         <br />
 
-        <form>
-            <div id="Nombres" class="w3-row-padding">
-                    <input class="w3-input w3-border" type="text" placeholder="Nombre">
+        <div class="w3-row-padding">
+            <input id="Nombre" class="w3-input w3-border" type="text" placeholder="Nombre(s)">
+        </div>
+        <div id="Apellidos" class="w3-row-padding">
+            <div class="w3-half">
+                <input id="ApellidoPaterno" class="w3-input w3-border" type="text" placeholder="Apellido Paterno">
             </div>
-            <div id="Apellidos" class="w3-row-padding">
-                <div class="w3-half">
-                    <input class="w3-input w3-border" type="text" placeholder="Apellido Paterno">
-                </div>
-                <div class="w3-half">
-                    <input class="w3-input w3-border" type="text" placeholder="Apellido Materno">
-                </div>
+            <div class="w3-half">
+                <input id="ApellidoMaterno" class="w3-input w3-border" type="text" placeholder="Apellido Materno">
             </div>
-            <br />
-            <input class="w3-btn w3-large w3-green" value="Buscar a un ente">
-        </form>
+        </div>
+        <br />
+        <label>No encuentra a quien busca?:</label>
+        <button id="Informacion" class="w3-btn w3-large w3-green">Actualizar/Insertar</button>
+
         <br /><br />
         <div>
-            <label>Encontrados (Seleccionar):</label>
+            <label>Es uno de estos?:</label>
             <ul id="Personas" class="w3-ul" style="height:130px; overflow:hidden; overflow-y:scroll;">
             </ul>
         </div>
         <br /><br />
-        <div id="Informacion" class="w3-row-padding">
+        <div class="w3-row-padding">
             <div class="w3-half">
                 <label>Lugares:</label>
                 <ul id="Lugares" class="w3-ul" style="height:130px; overflow:hidden; overflow-y:scroll;">
@@ -45,7 +45,10 @@
             </div>
         </div>
         <!-- <img src="Imagenes/MapaITT.jpg" alt="Mapa Tecnologico" style="width:100%"> -->
+
     </body>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/Funciones.js"></script>
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/Funciones.js"></script>
+    <script type="text/javascript" src="js/Introducir.js"></script>
 </html>
