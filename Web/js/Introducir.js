@@ -1,10 +1,11 @@
 $(document).ready(function() {
-    $("button").click(function() {
+
+    $("#Informacion").click(function() {
         let nombre = $("#Nombre").val();
         let apellidoPaterno = $("#ApellidoPaterno").val();
         let apellidoMaterno = $("#ApellidoMaterno").val();
 
-        // Ajax call to insert values to database.
+        // Llamada ajax para llenar entes.
         $.ajax({
             type: "POST",
             url: "/ITWACHO/Web/php/InsertarEnte.php",
@@ -12,9 +13,9 @@ $(document).ready(function() {
                 , ApellidoPaterno: apellidoPaterno
                 , ApellidoMaterno: apellidoMaterno
             }, success: function (data) {
-                alert(data);
+                alert("Gracias por denunciar a " + nombre + " " + apellidoPaterno + " " + apellidoMaterno);
             }, error: function (data) {
-                alert("Error");
+                console.log("Error conectandose a la base de datos.");
             }
         });
     });

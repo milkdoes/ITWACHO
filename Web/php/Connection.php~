@@ -3,7 +3,7 @@
 $ServerName = "DESKTOP-MG2NQ84\SQLSMJM";
 
 // Parameters to connect to database.
-$ConnectionInfo = array("Database" => "ItWacho", "UID" => "UsuarioItWacho", "PWD" => "UsuarioItWacho");
+$ConnectionInfo = array("Database" => "ItWacho", "UID" => "sa", "PWD" => "1983");
 
 // Execute database connection.
 $Con = sqlsrv_connect($ServerName, $ConnectionInfo);

@@ -12,7 +12,7 @@
 
         <form>
             <div id="Nombres" class="w3-row-padding">
-                    <input class="w3-input w3-border" type="text" placeholder="Nombre">
+                <input class="w3-input w3-border" type="text" placeholder="Nombre">
             </div>
             <div id="Apellidos" class="w3-row-padding">
                 <div class="w3-half">
@@ -22,8 +22,6 @@
                     <input class="w3-input w3-border" type="text" placeholder="Apellido Materno">
                 </div>
             </div>
-            <br />
-            <input class="w3-btn w3-large w3-green" type="submit" value="Buscar a un ente">
         </form>
         <br /><br />
         <div>
@@ -48,4 +46,5 @@
     </body>
     <script src="js/jquery.min.js"></script>
     <script src="js/Funciones.js"></script>
+    <script src="js/Seleccionar.js"></script>
 </html>

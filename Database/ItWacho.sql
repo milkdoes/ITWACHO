@@ -31,7 +31,6 @@ CREATE TABLE Actividad
 (
     Id integer PRIMARY KEY IDENTITY(0, 1)
     , Nombre varchar(50)
-    , Descripcion varchar(300)
 );
 GO
 
@@ -97,12 +96,12 @@ BEGIN
 	IF (@Nombre IS NOT NULL OR @ApellidoPaterno IS NOT NULL
 	OR @ApellidoMaterno IS NOT NULL)
 	BEGIN
-		SELECT e.Nombre, e.ApellidoPaterno AS [Apellido Paterno]
+		SELECT e.Id, e.Nombre, e.ApellidoPaterno AS [Apellido Paterno]
 		, e.ApellidoMaterno AS [Apellido Materno]
 		FROM Ente e
-		WHERE e.Nombre LIKE @Nombre
-		OR e.ApellidoPaterno LIKE @ApellidoPaterno
-		OR e.ApellidoMaterno LIKE @ApellidoMaterno
+		WHERE e.Nombre LIKE (@Nombre + '%')
+		OR e.ApellidoPaterno LIKE (@ApellidoPaterno + '%')
+		OR e.ApellidoMaterno LIKE (@ApellidoMaterno + '%')
 	END
 END
 GO
@@ -117,7 +116,7 @@ GO
 CREATE PROCEDURE dbo.SP_SelectActividad @Ente_Id integer
 AS
 BEGIN
-    SELECT a.Nombre, a.Descripcion
+    SELECT a.Nombre
     FROM Actividad a, Ente_Actividad ea
     WHERE ea.Ente_Id = @Ente_Id
     AND a.Id = ea.Actividad_Id

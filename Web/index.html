@@ -10,21 +10,17 @@
         <div id="Navegacion"></div>
         <br />
 
-        <form>
-            <div id="Nombres" class="w3-row-padding">
-                    <input class="w3-input w3-border" type="text" placeholder="Nombre">
+        <div class="w3-row-padding">
+            <input id="Nombre" class="w3-input w3-border" type="text" placeholder="Nombre">
+        </div>
+        <div id="Apellidos" class="w3-row-padding">
+            <div class="w3-half">
+                <input id="ApellidoPaterno" class="w3-input w3-border" type="text" placeholder="Apellido Paterno">
             </div>
-            <div id="Apellidos" class="w3-row-padding">
-                <div class="w3-half">
-                    <input class="w3-input w3-border" type="text" placeholder="Apellido Paterno">
-                </div>
-                <div class="w3-half">
-                    <input class="w3-input w3-border" type="text" placeholder="Apellido Materno">
-                </div>
+            <div class="w3-half">
+                <input id="ApellidoMaterno" class="w3-input w3-border" type="text" placeholder="Apellido Materno">
             </div>
-            <br />
-            <input class="w3-btn w3-large w3-green" value="Buscar a un ente">
-        </form>
+        </div>
         <br /><br />
         <div>
             <label>Encontrados (Seleccionar):</label>
@@ -48,4 +44,5 @@
     </body>
     <script src="js/jquery.min.js"></script>
     <script src="js/Funciones.js"></script>
+    <script src="js/Seleccionar.js"></script>
 </html>
