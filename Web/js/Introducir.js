@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
     $("#Informacion").click(function() {
         let nombre = $("#Nombre").val();
         let apellidoPaterno = $("#ApellidoPaterno").val();
@@ -9,11 +8,13 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             url: "/ITWACHO/Web/php/InsertarEnte.php",
-            data: {Nombre: nombre
+            data: {
+                Nombre: nombre
                 , ApellidoPaterno: apellidoPaterno
                 , ApellidoMaterno: apellidoMaterno
             }, success: function (data) {
-                alert("Gracias por denunciar a " + nombre + " " + apellidoPaterno + " " + apellidoMaterno);
+                if( !alert("Gracias por denunciar a " + nombre + " " + apellidoPaterno + " " + apellidoMaterno))
+                { window.location.reload(true); }
             }, error: function (data) {
                 console.log("Error conectandose a la base de datos.");
             }

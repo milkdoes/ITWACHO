@@ -69,6 +69,7 @@ AND ROUTINE_SCHEMA = 'dbo' AND ROUTINE_TYPE = 'PROCEDURE')
 EXEC ('DROP PROCEDURE dbo.SP_InsertEnte');
 GO
 
+-- Procedimiento para insertar un ente a la base de datos si no existe.
 CREATE PROCEDURE dbo.SP_InsertEnte @Nombre varchar(40) = NULL
 , @ApellidoPaterno varchar(20) = NULL, @ApellidoMaterno varchar(20) = NULL
 AS
@@ -76,6 +77,14 @@ BEGIN
 	IF (@Nombre IS NOT NULL OR @ApellidoPaterno IS NOT NULL
 	OR @ApellidoMaterno IS NOT NULL)
 	BEGIN
+		
+
+		SELECT * FROM Ente
+		WHERE
+		Nombre LIKE (@Nombre + '%')
+		OR ApellidoPaterno LIKE (@ApellidoPaterno + '%')
+		OR ApellidoMaterno LIKE (@ApellidoMaterno + '%');
+
 		INSERT INTO Ente (Nombre, ApellidoPaterno, ApellidoMaterno) VALUES
 		(@Nombre, @ApellidoPaterno, @ApellidoMaterno);
 	END

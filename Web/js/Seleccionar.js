@@ -4,20 +4,20 @@ $(document).ready(function() {
     var elementoLista;
 
     $("#Nombre, #ApellidoPaterno, #ApellidoMaterno").keyup(function() {
-        let nombre = $("#Nombre").val();
-        let apellidoPaterno = $("#ApellidoPaterno").val();
-        let apellidoMaterno = $("#ApellidoMaterno").val();
+        var nombre = $("#Nombre").val();
+        var apellidoPaterno = $("#ApellidoPaterno").val();
+        var apellidoMaterno = $("#ApellidoMaterno").val();
 
         // Llamada ajax para llenar entes.
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "/ITWACHO/Web/php/SeleccionarEnte.php",
-            data: {Nombre: nombre
+            data: {
+                Nombre: nombre
                 , ApellidoPaterno: apellidoPaterno
                 , ApellidoMaterno: apellidoMaterno
             }, success: function (data) {
                 $("#Personas").html(data);
-            }, error: function (data) {
             }
         });
     });
@@ -32,7 +32,7 @@ $(document).ready(function() {
         // Agregar color al elemento para que se vea que es el elemento elegido.
         $(this).addClass("w3-blue");
 
-        // Obtener valor de id del ente seleccionado. 
+        // Obtener valor de id del ente seleccionado.
         let id = $(this).data("id");
 
         // Llamada ajax para llenar actividades.
@@ -45,7 +45,7 @@ $(document).ready(function() {
             }, error: function (data) {
             }
         });
-        
+
         // Llamada ajax para llenar lugares.
         $.ajax({
             type: "GET",
