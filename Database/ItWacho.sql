@@ -77,8 +77,6 @@ BEGIN
 	IF (@Nombre IS NOT NULL OR @ApellidoPaterno IS NOT NULL
 	OR @ApellidoMaterno IS NOT NULL)
 	BEGIN
-		
-
 		SELECT * FROM Ente
 		WHERE
 		Nombre LIKE (@Nombre + '%')
@@ -110,7 +108,7 @@ BEGIN
 		FROM Ente e
 		WHERE e.Nombre LIKE (@Nombre + '%')
 		OR e.ApellidoPaterno LIKE (@ApellidoPaterno + '%')
-		OR e.ApellidoMaterno LIKE (@ApellidoMaterno + '%')
+		OR e.ApellidoMaterno LIKE (@ApellidoMaterno + '%');
 	END
 END
 GO
@@ -128,7 +126,7 @@ BEGIN
     SELECT a.Nombre
     FROM Actividad a, Ente_Actividad ea
     WHERE ea.Ente_Id = @Ente_Id
-    AND a.Id = ea.Actividad_Id
+    AND a.Id = ea.Actividad_Id;
 END
 GO
 
@@ -145,6 +143,6 @@ BEGIN
     SELECT l.Nombre
     FROM Lugar l, Ente_Lugar el
     WHERE el.Ente_Id = @Ente_Id
-    AND l.Id = el.Lugar_Id
+    AND l.Id = el.Lugar_Id;
 END
 GO
