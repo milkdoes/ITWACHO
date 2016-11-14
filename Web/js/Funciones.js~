@@ -20,6 +20,5 @@ function w3_close() {
 
 $(document).ready(function() {
     $('#Navegacion').load('/ITWACHO/Web/Partes/Navegacion.html');
-    $("#IngresoNombres").load("/ITWACHO/Web/Partes/IngresoNombres.html");
 });
 
