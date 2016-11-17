@@ -88,12 +88,6 @@ lugar donde se encuentra la persona a buscar.
 Variables de control: Todos los partícipes en una zona. En este
 caso en una institución educativa.
 
-## Diagrama de aplicacion  
-![Diagrama de aplicacion](DiagramaAplicacion.jpg "Diagrama de aplicacion")
-
-## Arquitectura  
-![Arquitectura](Arquitectura.jpg "Arquitectura")
-
 # Metodologia
 
 ## Analisis del problema  
@@ -194,13 +188,17 @@ paso 8. Sino, paso 11.
 paso 12. Sino, paso 15.
 
 **Diagrama de flujo**
-![Diagrama de flujo](DiagramaDeFlujo.jpeg "Diagrama de flujo")
+![Diagrama de flujo](DiagramaDeFlujo.jpeg "Diagrama de flujo")  
+
+
+## Depuracion del procedimiento.
+
 
 # Programacion aplicada
-**Programación Imperativa**
-**Programación Orientada a Objetos**
+**Programación Imperativa**  
+**Programación Orientada a Objetos**  
 Considerando que se van a introducir y leer datos ingresados, y los datos siendo ingresados de acuerdo a opiniones de usuarios, se realiza como una programación imperativa.
-Los lenguajes de programación principal siendo: JavaScript, C++ y Python/Ruby.
+Los lenguajes de programación principal siendo Javascript y PHP. Incluyendo un lnguaje de programacion especifico, cualquiera que se desee. En este caso, con uso de MySql.
 
 # Bibliografia  
 1. Michelone, M. L. (2016, March 28). Los lenguajes de programación más demandados en 2016. Retrieved September 07, 2016, from https://www.unocero.com/2016/03/28/los-nueve-lenguajes-mas-demandados-en-el-2016/  
