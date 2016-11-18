@@ -5,7 +5,7 @@ define("NOM", "Nombre");
 define("AP", "Apellido Paterno");
 define("AM", "Apellido Materno");
 
-include_once "Connection.php";
+include_once "Conn.php";
 
 // Si cualquier nombre esta asignado, continuar con la insercion a la base de datos.
 if (
@@ -34,28 +34,22 @@ if (
     }
 
     // Llamada al procedimiento almacenado.
-    $Procedimiento = "{ call dbo.SP_SelectEnte (?, ?, ?) }";
+    $Procedimiento = $con->prepare("CALL SP_SelectEnte(?, ?, ?)");
 
-    // Pasar los parametros el procedimiento almacenado.
-    $Parametros = array(
-        array($Nombre, SQLSRV_PARAM_IN)
-        , array($ApellidoPaterno, SQLSRV_PARAM_IN)
-        , array($ApellidoMaterno, SQLSRV_PARAM_IN)
-    );
+    // Pasar los parametros a el procedimiento almacenado.
+    // Definir parametros.
+    $Procedimiento->bindParam(1, $Nombre, PDO::PARAM_STR);
+    $Procedimiento->bindParam(2, $ApellidoPaterno, PDO::PARAM_STR);
+    $Procedimiento->bindParam(3, $ApellidoMaterno, PDO::PARAM_STR);
 
     // Ejecutar la consulta.
-    $Sql = sqlsrv_query($Con, $Procedimiento, $Parametros);
-
-    // Manejo de errores.
-    if ($Sql == false) {
-        die(print_r(sqlsrv_errors(), true));
-    }
-
-    // Desplegar los entes obtenidos.
-    while ($reg = sqlsrv_fetch_array($Sql)) {
-        echo "<li data-id='" . $reg[ID] . "' data-nombre='" .  $reg[NOM] . "' data-apellidopaterno='" . $reg[AP] . "' data-apellidomaterno='" . $reg[AM] . "'>"
-            . $reg[NOM] . " " . $reg[AP] . " " . $reg[AM]
-            . "</li>";
+    if ($Procedimiento->execute()) {
+        // Desplegar los entes obtenidos.
+        while($reg = $Procedimiento->fetch(PDO::FETCH_ASSOC)) {
+            echo "<li data-id='" . $reg[ID] . "' data-nombre='" .  $reg[NOM] . "' data-apellidopaterno='" . $reg[AP] . "' data-apellidomaterno='" . $reg[AM] . "'>"
+                . $reg[NOM] . " " . $reg[AP] . " " . $reg[AM]
+                . "</li>";
+        }
     }
 }
 ?>
