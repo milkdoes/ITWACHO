@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+    // Funcion para obtener el valor de un paramtero dentro de la URL.
     function getParameterByName(name) {
         let url = window.location.href;
         name = name.replace(/[\[\]]/g, "\\$&");
@@ -10,10 +11,18 @@ $(document).ready(function() {
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
 
+    // Obtener el identificador del ente a buscar.
     var id = getParameterByName("id");
 
-    // Elemento de lista elegido.
-    var elementoLista;
+    // Llamada ajax para obtener nombre completo del ente.
+    $.ajax({
+        type: "GET",
+        url: "/ITWACHO/Web/php/SeleccionarEnteWhereId.php",
+        data: { Id: id
+        }, success: function (data) {
+            $("#Nombre").value(data);
+        }
+    });
 
     // Llamada ajax para llenar actividades.
     $.ajax({

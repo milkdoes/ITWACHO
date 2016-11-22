@@ -14,6 +14,16 @@ $(document).ready(function() {
     // Obtener el identificador del ente a buscar.
     var id = getParameterByName("id");
 
+    // Llamada ajax para obtener nombre completo del ente.
+    $.ajax({
+        type: "GET",
+        url: "/ITWACHO/Web/php/SeleccionarEnteWhereId.php",
+        data: { Id: id
+        }, success: function (data) {
+            $("#Nombre").val(data);
+        }
+    });
+
     // Llamada ajax para llenar actividades.
     $.ajax({
         type: "GET",

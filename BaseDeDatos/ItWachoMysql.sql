@@ -90,6 +90,23 @@ END $$
 DELIMITER ;
 
 
+DROP PROCEDURE IF EXISTS SP_SelectEnteWhereId;
+
+-- Procedimiento para seleccionar el ente con el id dado.
+DELIMITER $$
+CREATE PROCEDURE SP_SelectEnteWhereId (IN id integer)
+BEGIN
+    IF (id IS NOT NULL)
+        THEN BEGIN
+        SELECT e.Nombre, e.ApellidoPaterno AS 'Apellido Paterno'
+        , e.ApellidoMaterno AS 'Apellido Materno'
+        FROM Ente e
+        WHERE e.Id = id;
+    END; END IF;
+END $$
+DELIMITER ;
+
+
 DROP PROCEDURE IF EXISTS SP_SelectActividad;
 
 -- Procedimiento para seleccionar las actividades que realiza el ente.
