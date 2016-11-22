@@ -57,4 +57,13 @@ $(document).ready(function() {
             }
         });
     });
+
+    $("#Perfil").click(function() {
+        // Capturar el id de la persona actualmente seleccionada.
+        let id = $("#Personas").find(".w3-blue").data("id");
+
+        if (id) {
+            window.location.href = "Perfil.html?id=" + id;
+        }
+    });
 });

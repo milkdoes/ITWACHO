@@ -13,7 +13,7 @@ if ( isset($_REQUEST["Id"]) && !empty($_REQUEST["Id"]) ) {
     $Procedimiento = $con->prepare("CALL SP_SelectActividad(?)");
 
     // Pasar los parametros el procedimiento almacenado.
-    $Procedimiento->bindParam(1, $Id, PDO::PARAM_STR);
+    $Procedimiento->bindParam(1, $Id, PDO::PARAM_INT);
 
     // Ejecutar la consulta.
     if ($Procedimiento->execute()) {
@@ -21,7 +21,6 @@ if ( isset($_REQUEST["Id"]) && !empty($_REQUEST["Id"]) ) {
         while ($reg = $Procedimiento->fetch(PDO::FETCH_ASSOC)) {
             echo "<li>"
                 . $reg[NOM]
-                . '<span onclick="this.parentElement.style.display=\'none\'" class="w3-closebtn w3-margin-right w3-medium">&times;</span>'
                 . "</li>";
         }
     }

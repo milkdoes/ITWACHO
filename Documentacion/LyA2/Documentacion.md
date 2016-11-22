@@ -191,8 +191,9 @@ paso 12. Sino, paso 15.
 ![Diagrama de flujo](DiagramaDeFlujo.jpeg "Diagrama de flujo")  
 
 
-## Depuracion del procedimiento.
-
+## Depuracion del procedimiento.  
+Debajo una captura del funcionamiento de la primera version de la pantalla de inicio. Aunque faltan las funciones de de poder pedir la busqueda de un ente y la vista de perfil.
+![Pantalla de inicio](Capturas/Inicio.JPG "Pantalla de inicio")
 
 # Programacion aplicada
 **Programación Imperativa**  
