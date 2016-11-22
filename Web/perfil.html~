@@ -7,30 +7,34 @@
             <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
         -->
         <link rel="stylesheet" href="Partes/w3.css">
-        <style>
-area:link, area:hover, area:active, area:focus {
-    border: 5px #f00 solid;
-}
-        </style>
     </head>
     <body>
         <div id="Navegacion"></div>
         <br />
-        <!-- INICIO Nombre -->
         <div class="w3-row-padding">
-            <div class="w3-col s12 m12 l12">
+            <div class="w3-col s12 m6 l6">
+                <img src="img/PerfilVacio.png" style="max-width:100%; max-height:300px;">
+            </div>
+            <div class="w3-col s12 m6 l6">
+                <br />
+                <!-- INICIO Nombre. -->
                 <input id="Nombre" class="w3-input w3-border" type="text">
+                <!-- FIN Nombre. -->
+                <!-- INICIO Apellidos. -->
+                <input id="ApellidoPaterno" class="w3-input w3-border" type="text" placeholder="Apellido Paterno">
+                <input id="ApellidoMaterno" class="w3-input w3-border" type="text" placeholder="Apellido Materno">
+                <!-- FIN Apellidos. -->
             </div>
         </div>
-        <!-- FIN Nombre -->
-        <img src="img/PerfilVacio.png" style="max-width:100%; height:500px;">
-        <div class="w3-row">
+        <div class="w3-row-padding">
             <div id="Informacion" class="w3-row-padding">
+                <br />
                 <div class="w3-col s12 m6 l6">
                     <label>Lugares:</label>
                     <ul id="Lugares" class="w3-ul w3-hoverable" style="height:130px; overflow:hidden; overflow-y:scroll;">
                     </ul>
                 </div>
+                <br />
                 <div class="w3-col s12 m6 l6">
                     <label>Actividades:</label>
                     <ul id="Actividades" class="w3-ul w3-hoverable" style="height:130px; overflow:hidden; overflow-y:scroll;">

@@ -19,8 +19,11 @@ $(document).ready(function() {
         type: "GET",
         url: "/ITWACHO/Web/php/SeleccionarEnteWhereId.php",
         data: { Id: id
-        }, success: function (data) {
-            $("#Nombre").value(data);
+        }, success: function (jsonData) {
+            // Procesar variable de tipo json.
+            let json = JSON.parse(jsonData);
+            //$("#Nombre").val(data["nombre"] + data["apellidoPaterno"] + data["apellidoMaterno"]);
+            $("#Nombre").val(json[0].nombre);
         }
     });
 

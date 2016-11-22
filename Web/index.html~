@@ -16,11 +16,14 @@
             <button id="Informacion" class="w3-btn w3-large w3-green">Actualizar/Insertar</button>
             <br /><br />
 
+            <!-- INICIO Nombre -->
             <div class="w3-row-padding">
                 <div class="w3-col s12 m12 l12">
                     <input id="Nombre" class="w3-input w3-border" type="text" placeholder="Nombre(s)">
                 </div>
             </div>
+            <!-- FIN Nombre -->
+            <!-- INICIO Apellidos. -->
             <div class="w3-row-padding">
                 <div class="w3-col s12 m6 l6">
                     <input id="ApellidoPaterno" class="w3-input w3-border" type="text" placeholder="Apellido Paterno">
@@ -29,6 +32,7 @@
                     <input id="ApellidoMaterno" class="w3-input w3-border" type="text" placeholder="Apellido Materno">
                 </div>
             </div>
+            <!-- FIN Apellidos. -->
             <br />
             <!-- INICIO Resultados de busqueda. -->
             <div class="w3-row-padding">

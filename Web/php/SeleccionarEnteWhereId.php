@@ -25,10 +25,22 @@ if (isset($_REQUEST["Id"]) && !empty($_REQUEST["Id"])) {
 
     // Ejecutar la consulta.
     if ($Procedimiento->execute()) {
-        // Desplegar los entes obtenidos.
-        while($reg = $Procedimiento->fetch(PDO::FETCH_ASSOC)) {
-            echo $reg[NOM] . " " . $reg[AP] . " " . $reg[AM];
-        }
+        // Variables a enviar por JSON.
+        $arregloJson = array();
+
+        // Capturar los valores de los entes obtenidos.
+        //while($reg = $Procedimiento->fetch(PDO::FETCH_ASSOC)) {
+        $reg = $Procedimiento->fetch(PDO::FETCH_ASSOC);
+
+        $arregloJson[] = array(
+            'nombre' => $reg[NOM]
+            , "apellidoPaterno" => $reg[AP]
+            , "apellidoMaterno" => $reg[AM]
+        );
+        //}
+
+        // Encodificar los datos de vuelta en forma de JSON.
+        echo json_encode($arregloJson);
     }
 }
 ?>
