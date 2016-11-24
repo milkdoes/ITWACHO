@@ -133,3 +133,59 @@ BEGIN
     AND l.Id = el.Lugar_Id;
 END $$
 DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS SP_InsertEnteActividad;
+
+-- Procedimiento para seleccionar los lugares que el ente transita usualmente por.
+DELIMITER $$
+CREATE PROCEDURE SP_InsertEnteActividad (IN idEnte integer, IN nombreActividad varchar(50))
+BEGIN
+/*
+    -- Revisar si la actividad ya existe. Si no, insertar.
+    INSERT INTO actividad (Nombre)
+    SELECT * FROM (SELECT nombreActividad) AS tmp
+    WHERE NOT EXISTS (
+        SELECT a.Nombre FROM actividad a WHERE a.Nombre = nombreActividad
+    ) LIMIT 1;
+    */
+    
+    -- Revisar si el id dado si existe. Si no, terminar.
+    IF ((SELECT COUNT(Id) FROM ente AS e WHERE e.Id = idEnte LIMIT 1) >= 1)
+    THEN BEGIN
+		
+		-- Declaracion de id de actividad (si existe).
+		DECLARE idActividad integer DEFAULT NULL;
+		
+		SET idActividad = (SELECT a.Id FROM actividad AS a WHERE a.Nombre = nombreActividad
+		LIMIT 1);
+		
+		-- Si la actividad dada no existe, insertar.
+		IF (idActividad IS NULL)
+		THEN BEGIN
+			-- Insertar nueva actividad.
+			INSERT INTO actividad (Nombre) VALUES(nombreActividad);
+			
+			-- Asignar valor a la variable local.
+			SET idActividad = (SELECT a.Id FROM actividad AS a WHERE a.Nombre = nombreActividad);
+		END; END IF;
+        
+        -- Vincular ente y actividad.
+		INSERT INTO ente_actividad (Ente_Id, Actividad_Id)
+		SELECT * FROM (SELECT idEnte, idActividad) AS tmp
+		WHERE NOT EXISTS (
+			SELECT * FROM ente_actividad AS ea
+            WHERE ea.Ente_Id = idEnte
+            AND ea.Actividad_Id = idActividad
+		) LIMIT 1;
+    
+    END; END IF;
+    
+END $$
+DELIMITER ;
+
+SELECT * FROM actividad;
+
+SELECT * FROM ente_actividad;
+
+call SP_InsertEnteActividad(1, 'Reprobar gente.');

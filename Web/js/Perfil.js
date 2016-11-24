@@ -22,9 +22,15 @@ $(document).ready(function() {
         }, success: function (jsonData) {
             // Procesar variable de tipo json.
             let json = JSON.parse(jsonData);
+            
+            // Captura de datos del ente.
+            let nombre = json[0].nombre;
+            let apellidoPaterno = json[0].apellidoPaterno;
+            let apellidoMaterno = json[0].apellidoMaterno;
 
-            //$("#Nombre").val(data["nombre"] + data["apellidoPaterno"] + data["apellidoMaterno"]);
-            $("#Nombre").val(json[0].nombre);
+            $("#Nombre").val(nombre);
+            $("#ApellidoPaterno").val(apellidoPaterno);
+            $("#ApellidoMaterno").val(apellidoMaterno);
         }
     });
 

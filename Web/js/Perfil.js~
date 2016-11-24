@@ -22,6 +22,7 @@ $(document).ready(function() {
         }, success: function (jsonData) {
             // Procesar variable de tipo json.
             let json = JSON.parse(jsonData);
+
             //$("#Nombre").val(data["nombre"] + data["apellidoPaterno"] + data["apellidoMaterno"]);
             $("#Nombre").val(json[0].nombre);
         }

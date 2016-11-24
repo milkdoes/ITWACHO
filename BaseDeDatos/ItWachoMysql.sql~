@@ -133,3 +133,20 @@ BEGIN
     AND l.Id = el.Lugar_Id;
 END $$
 DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS SP_InsertEnteActividad;
+
+-- Procedimiento para seleccionar los lugares que el ente transita usualmente por.
+DELIMITER $$
+CREATE PROCEDURE SP_InsertEnteActividad (IN nombreActividad varchar(50))
+BEGIN
+    -- Revisar si la actividad ya existe. Si no, insertar.
+    INSERT INTO actividad (Nombre)
+    SELECT * FROM (SELECT nombreActividad) AS tmp
+    WHERE NOT EXISTS (
+        SELECT a.Nombre FROM actividad a WHERE a.Nombre = nombreActividad
+    ) LIMIT 1;
+END $$
+DELIMITER ;
+
