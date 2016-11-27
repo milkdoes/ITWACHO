@@ -55,4 +55,9 @@ $(document).ready(function() {
         }, error: function (data) {
         }
     });
+
+    // Evento para preguntar la localizacion de un individuo.
+    $("#PreguntarLocalizacion").click(function(e) {
+        $("#UltimoLugar").val("");
+    });
 });

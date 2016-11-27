@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS ente
 (
     Id integer NOT NULL PRIMARY KEY AUTO_INCREMENT
     , Nombre varchar(40) NOT NULL
-    , ApellidoPaterno varchar(20)NULL
+    , ApellidoPaterno varchar(20) NULL
     , ApellidoMaterno varchar(20) NULL
 );
 
@@ -27,8 +27,8 @@ CREATE TABLE IF NOT EXISTS actividad
 
 CREATE TABLE IF NOT EXISTS ente_actividad
 (
-    Ente_Id integer NOT NULL REFERENCES Ente (Id)
-    , Actividad_Id integer NOT NULL REFERENCES Actividad (Id)
+    Ente_Id integer NOT NULL REFERENCES ente (Id)
+    , Actividad_Id integer NOT NULL REFERENCES actividad (Id)
 );
 
 CREATE TABLE IF NOT EXISTS lugar
@@ -39,8 +39,15 @@ CREATE TABLE IF NOT EXISTS lugar
 
 CREATE TABLE IF NOT EXISTS ente_lugar
 (
-    Ente_Id integer NOT NULL REFERENCES Ente (Id)
-    , Lugar_Id integer NOT NULL REFERENCES Lugar (Id)
+    Ente_Id integer NOT NULL REFERENCES ente (Id)
+    , Lugar_Id integer NOT NULL REFERENCES lugar (Id)
+);
+
+CREATE TABLE IF NOT EXISTS rastrear
+(
+    Ente_Id integer NOT NULL REFERENCES ente (Id)
+    , UltimoLugar integer NULL REFERENCES lugar (Id)
+    , Buscado BIT DEFAULT 0
 );
 
 -- PROCEDIMIENTOS
@@ -57,13 +64,13 @@ BEGIN
     IF (nombre IS NOT NULL OR apellidoPaterno IS NOT NULL
         OR apellidoMaterno IS NOT NULL)
         THEN BEGIN
-            INSERT INTO ente(Nombre, ApellidoPaterno, ApellidoMaterno)
-            SELECT Nombre, ApellidoPaterno, ApellidoMaterno FROM ente
-            WHERE NOT EXISTS (SELECT * FROM ente e
-				WHERE e.Nombre = nombre AND e.ApellidoPaterno = apellidoPaterno
-                AND e.ApellidoMaterno = apellidoMaterno)
-                LIMIT 1;
-END; END IF;
+        INSERT INTO ente(Nombre, ApellidoPaterno, ApellidoMaterno)
+        SELECT Nombre, ApellidoPaterno, ApellidoMaterno FROM ente
+        WHERE NOT EXISTS (SELECT * FROM ente e
+            WHERE e.Nombre = nombre AND e.ApellidoPaterno = apellidoPaterno
+            AND e.ApellidoMaterno = apellidoMaterno)
+        LIMIT 1;
+    END; END IF;
 END $$
 DELIMITER ;
 
@@ -107,6 +114,51 @@ END $$
 DELIMITER ;
 
 
+DROP PROCEDURE IF EXISTS SP_ModifyRastrear;
+
+-- Procedimiento para seleccionar el ente con el id dado.
+DELIMITER $$
+CREATE PROCEDURE SP_ModifyRastrear (IN EnteId integer, IN Buscado BIT, IN LugarId integer, IN LugarNombre varchar(50))
+Label_ModifyRastrear: BEGIN
+    IF (EnteId IS NOT NULL)
+	THEN BEGIN
+        
+		IF ((SELECT COUNT(r.Ente_Id) FROM rastrear AS r WHERE r.Ente_Id = EnteId LIMIT 1) < 1)
+		THEN BEGIN
+            INSERT INTO rastrear(Ente_Id) VALUES(EnteId);
+        END; END IF;
+        
+		IF (Buscado >= 1 AND LugarId IS NULL AND LugarNombre IS NULL)
+		THEN BEGIN
+			UPDATE rastrear SET
+            UltimoLugar = NULL
+            , Buscado = 1
+            WHERE Ente_Id = EnteId;
+            
+            -- Salir del procedimiento.
+            LEAVE Label_ModifyRastrear;
+		END; END IF;
+        
+		IF (LugarId IS NULL AND LugarNombre IS NOT NULL)
+		THEN BEGIN
+		
+			IF ((SELECT COUNT(l.Id) FROM lugar AS l WHERE l.Nombre = LugarNombre LIMIT 1) < 1)
+			THEN BEGIN
+				INSERT INTO lugar(Nombre) VALUES(LugarNombre);
+			END; END IF;
+			
+			SET LugarId = (SELECT l.Id FROM lugar WHERE l.Nombre = LugarNombre LIMIT 1);
+		END; END IF;
+		
+		UPDATE rastrear SET
+		UltimoLugar = LugarId
+		, Buscado = 0
+		WHERE Ente_Id = EnteId;
+	END; END IF;
+END $$
+DELIMITER ;
+
+
 DROP PROCEDURE IF EXISTS SP_SelectActividad;
 
 -- Procedimiento para seleccionar las actividades que realiza el ente.
@@ -139,53 +191,51 @@ DROP PROCEDURE IF EXISTS SP_InsertEnteActividad;
 
 -- Procedimiento para seleccionar los lugares que el ente transita usualmente por.
 DELIMITER $$
-CREATE PROCEDURE SP_InsertEnteActividad (IN idEnte integer, IN nombreActividad varchar(50))
+CREATE PROCEDURE SP_InsertEnteActividad (IN idEnte integer, IN idActividad integer
+    , IN nombreActividad varchar(50))
 BEGIN
-/*
+    /*
     -- Revisar si la actividad ya existe. Si no, insertar.
     INSERT INTO actividad (Nombre)
     SELECT * FROM (SELECT nombreActividad) AS tmp
     WHERE NOT EXISTS (
         SELECT a.Nombre FROM actividad a WHERE a.Nombre = nombreActividad
     ) LIMIT 1;
-    */
-    
-    -- Revisar si el id dado si existe. Si no, terminar.
-    IF ((SELECT COUNT(Id) FROM ente AS e WHERE e.Id = idEnte LIMIT 1) >= 1)
-    THEN BEGIN
-		
-		-- Declaracion de id de actividad (si existe).
-		DECLARE idActividad integer DEFAULT NULL;
-		
-		SET idActividad = (SELECT a.Id FROM actividad AS a WHERE a.Nombre = nombreActividad
-		LIMIT 1);
-		
-		-- Si la actividad dada no existe, insertar.
-		IF (idActividad IS NULL)
-		THEN BEGIN
-			-- Insertar nueva actividad.
-			INSERT INTO actividad (Nombre) VALUES(nombreActividad);
-			
-			-- Asignar valor a la variable local.
-			SET idActividad = (SELECT a.Id FROM actividad AS a WHERE a.Nombre = nombreActividad);
-		END; END IF;
-        
+     */
+
+    -- Revisar si el id dado existe. Si no, terminar.
+    IF ((SELECT COUNT(e.Id) FROM ente AS e WHERE e.Id = idEnte LIMIT 1) >= 1
+        AND (idActividad IS NOT NULL OR nombreActividad IS NOT NULL))
+        THEN BEGIN
+
+        -- Si no se dio el id de la actividad, buscar si la actividad existe.
+        IF (idActividad IS NULL AND nombreActividad IS NOT NULL)
+            THEN BEGIN
+            SET idActividad = (SELECT a.Id FROM actividad AS a WHERE a.Nombre = nombreActividad);
+        END; END IF;
+
+        -- Si la actividad dada aun no existe, insertar.
+        IF (idActividad IS NULL
+            OR (SELECT COUNT(a.Id) FROM actividad AS a WHERE a.Id = idActividad LIMIT 1) < 1
+            )
+            THEN BEGIN
+            -- Insertar nueva actividad.
+            INSERT INTO actividad (Nombre) VALUES(nombreActividad);
+
+            -- Asignar valor a la variable local.
+            SET idActividad = (SELECT a.Id FROM actividad AS a WHERE a.Nombre = nombreActividad);
+        END; END IF;
+
         -- Vincular ente y actividad.
-		INSERT INTO ente_actividad (Ente_Id, Actividad_Id)
-		SELECT * FROM (SELECT idEnte, idActividad) AS tmp
-		WHERE NOT EXISTS (
-			SELECT * FROM ente_actividad AS ea
+        INSERT INTO ente_actividad (Ente_Id, Actividad_Id)
+        SELECT * FROM (SELECT idEnte, idActividad) AS tmp
+        WHERE NOT EXISTS (
+            SELECT * FROM ente_actividad AS ea
             WHERE ea.Ente_Id = idEnte
             AND ea.Actividad_Id = idActividad
-		) LIMIT 1;
-    
-    END; END IF;
-    
+        ) LIMIT 1;
+
+END; END IF;
+
 END $$
 DELIMITER ;
-
-SELECT * FROM actividad;
-
-SELECT * FROM ente_actividad;
-
-call SP_InsertEnteActividad(1, 'Reprobar gente.');

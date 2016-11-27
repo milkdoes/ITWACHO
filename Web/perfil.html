@@ -17,32 +17,40 @@
             </div>
             <div class="w3-col s12 m6 l6">
                 <br />
+                <label class="w3-label">Datos:</label>
                 <!-- INICIO Nombre. -->
-                <input id="Nombre" class="w3-input w3-border" type="text">
+                <input id="Nombre" class="w3-input w3-border" type="text" placeholder="Nombre(s)" readonly>
                 <!-- FIN Nombre. -->
                 <!-- INICIO Apellidos. -->
-                <input id="ApellidoPaterno" class="w3-input w3-border" type="text" placeholder="Apellido Paterno">
-                <input id="ApellidoMaterno" class="w3-input w3-border" type="text" placeholder="Apellido Materno">
+                <input id="ApellidoPaterno" class="w3-input w3-border" type="text" placeholder="Apellido Paterno" readonly>
+                <input id="ApellidoMaterno" class="w3-input w3-border" type="text" placeholder="Apellido Materno" readonly>
                 <!-- FIN Apellidos. -->
+            </div>
+            <div class="w3-col s12 m6 l6">
+                <br />
+                <button id="PreguntarLocalizacion" class="w3-btn w3-xlarge w3-red">Donde esta?!</button>
+                <br /><br />
+                <label class="w3-label">Ultimo lugar visto:</label>
+                <input id="UltimoLugar" class="w3-input w3-border" type="text" readonly>
             </div>
         </div>
         <br />
         <div class="w3-row-padding">
             <div id="Informacion" class="w3-row-padding">
                 <div class="w3-col s12 m6 l6">
-                    <label>Lugares:</label>
+                    <label class="w3-label">Lugares:</label>
                     <ul id="Lugares" class="w3-ul w3-hoverable" style="height:130px; overflow:hidden; overflow-y:scroll;">
                     </ul>
                 </div>
                 <div class="w3-col s12 m6 l6">
-                    <label>Actividades:</label>
+                    <label class="w3-label">Actividades:</label>
                     <ul id="Actividades" class="w3-ul w3-hoverable" style="height:130px; overflow:hidden; overflow-y:scroll;">
                     </ul>
                 </div>
             </div>
             <br />
         </div>
-        <div id="MapaItt"></div>
+        <div id="MapaItt" class="w3-row-padding"></div>
     </body>
     <!--
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
