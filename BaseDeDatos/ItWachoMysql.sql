@@ -164,7 +164,7 @@ DROP PROCEDURE IF EXISTS SP_InsertActividad;
 
 -- Procedimiento para insertar una actividad a la base de datos si no existe.
 DELIMITER $$
-CREATE PROCEDURE SP_InsertActividad (IN nombreActividad varchar(40))
+CREATE PROCEDURE SP_InsertActividad (IN nombreActividad varchar(60))
 BEGIN
     IF (nombreActividad IS NOT NULL)
         THEN BEGIN
@@ -184,7 +184,7 @@ DROP PROCEDURE IF EXISTS SP_InsertLugar;
 
 -- Procedimiento para insertar una actividad a la base de datos si no existe.
 DELIMITER $$
-CREATE PROCEDURE SP_InsertLugar (IN nombreLugar varchar(40))
+CREATE PROCEDURE SP_InsertLugar (IN nombreLugar varchar(60))
 BEGIN
     IF (nombreLugar IS NOT NULL)
         THEN BEGIN

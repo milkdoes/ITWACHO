@@ -12,13 +12,13 @@ $(document).ready(function() {
     }
 
     // Obtener el identificador del ente a buscar.
-    var enteId = getParameterByName("id");
+    var idEnte = getParameterByName("id");
 
     // Llamada ajax para obtener nombre completo del ente.
     $.ajax({
         type: "GET",
         url: "/ITWACHO/Web/php/SeleccionarEnteWhereId.php",
-        data: { Id: enteId
+        data: { Id: idEnte
         }, success: function (jsonData) {
             // Procesar variable de tipo json.
             let json = JSON.parse(jsonData);
@@ -38,7 +38,7 @@ $(document).ready(function() {
     $.ajax({
         type: "GET",
         url: "/ITWACHO/Web/php/SelectRastrear.php",
-        data: { Id: enteId
+        data: { Id: idEnte
         }, success: function (data) {
             $("#UltimoLugar").val(data);
         }, error: function (data) {
@@ -49,7 +49,7 @@ $(document).ready(function() {
     $.ajax({
         type: "GET",
         url: "/ITWACHO/Web/php/SeleccionarLugar.php",
-        data: { Id: enteId
+        data: { Id: idEnte
         }, success: function (data) {
             $("#Lugares").html(data);
         }, error: function (data) {
@@ -60,7 +60,7 @@ $(document).ready(function() {
     $.ajax({
         type: "GET",
         url: "/ITWACHO/Web/php/SeleccionarActividad.php",
-        data: { Id: enteId
+        data: { Id: idEnte
         }, success: function (data) {
             $("#Actividades").html(data);
         }, error: function (data) {
@@ -74,7 +74,7 @@ $(document).ready(function() {
             type: "GET",
             url: "/ITWACHO/Web/php/ModificarRastrear.php",
             data: {
-                EnteId: enteId
+                EnteId: idEnte
                 , Buscado: 1
             }, success: function (data) {
                 $("#UltimoLugar").val("");
@@ -86,14 +86,39 @@ $(document).ready(function() {
 
     // Evento para llenar otro lugar para un ente.
     $("#AgregarLugar").click(function(e) {
-        // Llamada ajax para pedir busqueda de persona.
+        // Obtener el lugar a insertar.
+        let nombreLugar = $("#NombreLugar").val();
+
+        // Llamada ajax para insertar lugar al ente.
         $.ajax({
             type: "GET",
-            url: "/ITWACHO/Web/php/InsertLugar.php",
-            data: { EnteId: enteId
+            url: "/ITWACHO/Web/php/InsertEnteLugar.php",
+            data: {
+                IdEnte: idEnte
+                , NombreLugar: nombreLugar
             }, success: function (data) {
-                $("#UltimoLugar").val("");
-                alert("Pedido de busqueda exitosa.");
+                // Agregar nuevo elemento al elemento padre.
+                $("#Lugares").append("<li>" + nombreLugar + "</li>");
+            }, error: function (data) {
+            }
+        });
+    });
+
+    // Evento para llenar otra actividad para un ente.
+    $("#AgregarActividad").click(function(e) {
+        // Obtener la actividad a insertar.
+        let nombreActividad = $("#NombreActividad").val();
+
+        // Llamada ajax para insertar actividad al ente.
+        $.ajax({
+            type: "GET",
+            url: "/ITWACHO/Web/php/InsertEnteActividad.php",
+            data: {
+                IdEnte: idEnte
+                , NombreActividad: nombreActividad
+            }, success: function (data) {
+                // Agregar nuevo elemento al elemento padre.
+                $("#Actividades").append("<li>" + nombreActividad + "</li>");
             }, error: function (data) {
             }
         });
