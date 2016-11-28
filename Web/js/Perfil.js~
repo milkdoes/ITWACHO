@@ -1,3 +1,6 @@
+// Variable para el id del ente.
+var enteId = 0;
+
 $(document).ready(function() {
 
     // Funcion para obtener el valor de un paramtero dentro de la URL.
@@ -12,17 +15,17 @@ $(document).ready(function() {
     }
 
     // Obtener el identificador del ente a buscar.
-    var id = getParameterByName("id");
+    enteId = getParameterByName("id");
 
     // Llamada ajax para obtener nombre completo del ente.
     $.ajax({
         type: "GET",
         url: "/ITWACHO/Web/php/SeleccionarEnteWhereId.php",
-        data: { Id: id
+        data: { Id: enteId
         }, success: function (jsonData) {
             // Procesar variable de tipo json.
             let json = JSON.parse(jsonData);
-            
+
             // Captura de datos del ente.
             let nombre = json[0].nombre;
             let apellidoPaterno = json[0].apellidoPaterno;
@@ -38,7 +41,7 @@ $(document).ready(function() {
     $.ajax({
         type: "GET",
         url: "/ITWACHO/Web/php/SeleccionarActividad.php",
-        data: { Id: id
+        data: { Id: enteId
         }, success: function (data) {
             $("#Actividades").html(data);
         }, error: function (data) {
@@ -49,15 +52,27 @@ $(document).ready(function() {
     $.ajax({
         type: "GET",
         url: "/ITWACHO/Web/php/SeleccionarLugar.php",
-        data: { Id: id
+        data: { Id: enteId
         }, success: function (data) {
             $("#Lugares").html(data);
         }, error: function (data) {
         }
     });
 
-    //
+    // Evento para preguntar la localizacion de un individuo.
     $("#PreguntarLocalizacion").click(function(e) {
-        $("#UltimoLugar").val("");
+        // Llamada ajax para pedir busqueda de persona.
+        $.ajax({
+            type: "GET",
+            url: "/ITWACHO/Web/php/ModificarRastrear.php",
+            data: {
+                EnteId: enteId
+                , Buscado: 1
+            }, success: function (data) {
+                $("#UltimoLugar").val("");
+                alert("Pedido de busqueda exitosa.");
+            }, error: function (data) {
+            }
+        });
     });
 });

@@ -15,13 +15,8 @@ CREATE TABLE IF NOT EXISTS ente
 (
     Id integer NOT NULL PRIMARY KEY AUTO_INCREMENT
     , Nombre varchar(40) NOT NULL
-    , ApellidoPaterno varchar(20)NULL
+    , ApellidoPaterno varchar(20) NULL
     , ApellidoMaterno varchar(20) NULL
-);
-
-CREATE TABLE IF NOT EXISTS rastrear
-(
-    Ente_Id integer NOT NULL REFERENCES ente (Id)
 );
 
 CREATE TABLE IF NOT EXISTS actividad
@@ -46,6 +41,13 @@ CREATE TABLE IF NOT EXISTS ente_lugar
 (
     Ente_Id integer NOT NULL REFERENCES ente (Id)
     , Lugar_Id integer NOT NULL REFERENCES lugar (Id)
+);
+
+CREATE TABLE IF NOT EXISTS rastrear
+(
+    Ente_Id integer NOT NULL REFERENCES ente (Id)
+    , UltimoLugar integer NULL REFERENCES lugar (Id)
+    , Buscado BIT DEFAULT 0
 );
 
 -- PROCEDIMIENTOS
@@ -112,19 +114,47 @@ END $$
 DELIMITER ;
 
 
-DROP PROCEDURE IF EXISTS SP_InsertRastrear;
+DROP PROCEDURE IF EXISTS SP_ModifyRastrear;
 
 -- Procedimiento para seleccionar el ente con el id dado.
 DELIMITER $$
-CREATE PROCEDURE SP_InsertRastrear (IN EnteId integer)
-BEGIN
-    IF (id IS NOT NULL)
+CREATE PROCEDURE SP_ModifyRastrear (IN EnteId integer, IN Buscado BIT, IN LugarId integer, IN LugarNombre varchar(50))
+Label_ModifyRastrear: BEGIN
+IF (EnteId IS NOT NULL)
+    THEN BEGIN
+
+    IF ((SELECT COUNT(r.Ente_Id) FROM rastrear AS r WHERE r.Ente_Id = EnteId LIMIT 1) < 1)
         THEN BEGIN
-        IF ((SELECT COUNT(r.Ente_Id) FROM rastrear AS r WHERE r.Ente_Id = EnteId LIMIT 1) < 1)
+        INSERT INTO rastrear(Ente_Id) VALUES(EnteId);
+    END; END IF;
+
+    IF (Buscado >= 1 AND LugarId IS NULL AND LugarNombre IS NULL)
+        THEN BEGIN
+        UPDATE rastrear SET
+        UltimoLugar = NULL
+        , Buscado = 1
+        WHERE Ente_Id = EnteId;
+
+        -- Salir del procedimiento.
+        LEAVE Label_ModifyRastrear;
+    END; END IF;
+
+    IF (LugarId IS NULL AND LugarNombre IS NOT NULL)
+        THEN BEGIN
+
+        IF ((SELECT COUNT(l.Id) FROM lugar AS l WHERE l.Nombre = LugarNombre LIMIT 1) < 1)
             THEN BEGIN
-            INSERT INTO rastrear (Ente_Id) VALUES(EnteId);
+            INSERT INTO lugar(Nombre) VALUES(LugarNombre);
         END; END IF;
-END; END IF;
+
+        SET LugarId = (SELECT l.Id FROM lugar WHERE l.Nombre = LugarNombre LIMIT 1);
+            END; END IF;
+
+            UPDATE rastrear SET
+            UltimoLugar = LugarId
+            , Buscado = 0
+            WHERE Ente_Id = EnteId;
+    END; END IF;
 END $$
 DELIMITER ;
 
@@ -173,7 +203,7 @@ BEGIN
     ) LIMIT 1;
      */
 
-    -- Revisar si el id dado si existe. Si no, terminar.
+    -- Revisar si el id dado existe. Si no, terminar.
     IF ((SELECT COUNT(e.Id) FROM ente AS e WHERE e.Id = idEnte LIMIT 1) >= 1
         AND (idActividad IS NOT NULL OR nombreActividad IS NOT NULL))
         THEN BEGIN
@@ -209,9 +239,3 @@ END; END IF;
 
 END $$
 DELIMITER ;
-
-SELECT * FROM actividad;
-
-SELECT * FROM ente_actividad;
-
-call SP_InsertEnteActividad(1, 'Reprobar gente.');
