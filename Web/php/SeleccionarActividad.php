@@ -21,7 +21,6 @@ if ( isset($_REQUEST["Id"]) && !empty($_REQUEST["Id"]) ) {
         while ($reg = $Procedimiento->fetch(PDO::FETCH_ASSOC)) {
             echo "<li>"
                 . $reg[NOM]
-                . '<span onclick="this.parentElement.style.display=\'none\'" class="w3-closebtn w3-margin-right w3-medium">&times;</span>'
                 . "</li>";
         }
     }

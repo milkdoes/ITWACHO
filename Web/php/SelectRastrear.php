@@ -1,6 +1,7 @@
 <?php
 // Posiciones en procedimiento de base de datos.
-define("NOM", "Nombre");
+define("NOM", "NombreEnte");
+define("LUG", "NombreLugar");
 
 include_once "Conn.php";
 
@@ -10,7 +11,7 @@ if ( isset($_REQUEST["Id"]) && !empty($_REQUEST["Id"]) ) {
     $Id = $_REQUEST["Id"];
 
     // Llamada al procedimiento almacenado.
-    $Procedimiento = $con->prepare("CALL SP_SelectLugar(?)");
+    $Procedimiento = $con->prepare("CALL SP_SelectRastrear(?)");
 
     // Pasar los parametros el procedimiento almacenado.
     $Procedimiento->bindParam(1, $Id, PDO::PARAM_INT);
@@ -19,9 +20,7 @@ if ( isset($_REQUEST["Id"]) && !empty($_REQUEST["Id"]) ) {
     if ($Procedimiento->execute()) {
         // Desplegar los entes obtenidos.
         while ($reg = $Procedimiento->fetch(PDO::FETCH_ASSOC)) {
-            echo "<li>"
-                . $reg[NOM]
-                . "</li>";
+            echo $reg[LUG];
         }
     }
 }

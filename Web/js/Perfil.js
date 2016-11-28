@@ -34,13 +34,13 @@ $(document).ready(function() {
         }
     });
 
-    // Llamada ajax para llenar actividades.
+    // Llamada ajax para llenar ultimo lugar.
     $.ajax({
         type: "GET",
-        url: "/ITWACHO/Web/php/SeleccionarActividad.php",
+        url: "/ITWACHO/Web/php/SelectRastrear.php",
         data: { Id: enteId
         }, success: function (data) {
-            $("#Actividades").html(data);
+            $("#UltimoLugar").val(data);
         }, error: function (data) {
         }
     });
@@ -56,6 +56,17 @@ $(document).ready(function() {
         }
     });
 
+    // Llamada ajax para llenar actividades.
+    $.ajax({
+        type: "GET",
+        url: "/ITWACHO/Web/php/SeleccionarActividad.php",
+        data: { Id: enteId
+        }, success: function (data) {
+            $("#Actividades").html(data);
+        }, error: function (data) {
+        }
+    });
+
     // Evento para preguntar la localizacion de un individuo.
     $("#PreguntarLocalizacion").click(function(e) {
         // Llamada ajax para pedir busqueda de persona.
@@ -65,6 +76,21 @@ $(document).ready(function() {
             data: {
                 EnteId: enteId
                 , Buscado: 1
+            }, success: function (data) {
+                $("#UltimoLugar").val("");
+                alert("Pedido de busqueda exitosa.");
+            }, error: function (data) {
+            }
+        });
+    });
+
+    // Evento para llenar otro lugar para un ente.
+    $("#AgregarLugar").click(function(e) {
+        // Llamada ajax para pedir busqueda de persona.
+        $.ajax({
+            type: "GET",
+            url: "/ITWACHO/Web/php/InsertLugar.php",
+            data: { EnteId: enteId
             }, success: function (data) {
                 $("#UltimoLugar").val("");
                 alert("Pedido de busqueda exitosa.");
