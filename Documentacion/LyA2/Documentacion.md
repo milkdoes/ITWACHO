@@ -12,13 +12,12 @@ Siendo estudiantes, trabajadores, o cualquier tipo de persona con una actividad 
 
 # Objetivos  
 ## General
-Se desarrollara e implementara un sistema web para que las personas puedan pedir ayuda o investigar informacion previa sobre donde se localiza una persona, y si no se encuentra de la primera forma, tener indicios para encontrarlo con facilidad. Aplicado a una Institucion Educativa.  
+Se desarrollara e implementara un sistema web para que las personas puedan investigar informacion previa sobre donde se localiza una persona, y si no se encuentra de la primera forma, tener indicios para encontrarlo con facilidad. Aplicado a una Institucion Educativa.  
 
 ## Especificos
 * Creación de aplicación web usando un formato adaptable apoyándose de html/css y javascript además de algunas librerías como Jquery y/o bootstrap.
 * Diseño, creacion, modificacion y montaje de la base de datos.
 * Configuracion y montaje de un BackEnd con un lenguaje de programacion apropiada para lo que se desea desarrollar.
-* Creación de aplicacion nativa móvil y para escritorio usando lenguajes como c++, ruby y javascript.
 * Configuración de servidor web para patrocinar el sistema a otros usuarios.  
 
 # Justificacion  
@@ -255,7 +254,7 @@ Aunque hay ya un gran avance para reconocer las actividades y lugares comunes en
 Aun asi, la idea y utilidad minima ya esta definida y usable.
 
 
-# Bibliografia  
+# Bibliografía  
 1. Michelone, M. L. (2016, March 28). Los lenguajes de programación más demandados en 2016. Retrieved September 07, 2016, from https://www.unocero.com/2016/03/28/los-nueve-lenguajes-mas-demandados-en-el-2016/  
 2. Rodriguez, C. (n.d.). Tendencias en diseño web para 2016 (con ejemplos). Retrieved September 07, 2016, from https://www.40defiebre.com/tendencias-diseno-web-2016/  
 3. Tendencias en desarrollo de software para 2016. (2016, February 01). Retrieved September 06, 2016, from https://bbvaopen4u.com/es/actualidad/tendencias-en-desarrollo-de-software-para-2016  
