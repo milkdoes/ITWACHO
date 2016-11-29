@@ -65,7 +65,7 @@ Los gastos incluyendo el mantenimiento del proyecto siendo:
 Actividad | Costo (dolares)
 --------- | ---------------
 Desarrollo | $3000.00
-Servidor | $500.00
+Servidor | ~$500.00
 Soporte Tecnico | Variado (No se cubre)
 Recursos (Electricidad, componentes de reemplazo, etcetera) | Variado (No se cubre)
 
@@ -195,11 +195,65 @@ paso 12. Sino, paso 15.
 Debajo una captura del funcionamiento de la primera version de la pantalla de inicio. Aunque faltan las funciones de de poder pedir la busqueda de un ente y la vista de perfil.
 ![Pantalla de inicio](Capturas/Inicio.JPG "Pantalla de inicio")
 
+
 # Programacion aplicada
 **Programación Imperativa**  
 **Programación Orientada a Objetos**  
 Considerando que se van a introducir y leer datos ingresados, y los datos siendo ingresados de acuerdo a opiniones de usuarios, se realiza como una programación imperativa.
 Los lenguajes de programación principal siendo Javascript y PHP. Incluyendo un lnguaje de programacion especifico, cualquiera que se desee. En este caso, con uso de MySql.
+
+
+# Desarrollo
+Para cumplir con los requerimientos, se da la necesidad de cubrir lo siguiente para un sistema web:
+* FrontEnd
+* BackEnd
+* Base de datos
+
+Para ello se proporcionan los diferentes resultados.
+
+## FrontEnd
+Para las vistas, se da un detalle minimalista, que da la informacion que se requiere sin muchas animaciones. Esto para mejorar el rendimiento de renderizado de la pagina hacia al usuario.
+
+**Pantallas**
+![Pantalla de inicio](Capturas/Inicio.JPG "Pantalla de inicio")
+![Pantalla de inicio](Capturas/Perfil1.JPG "Pantalla de perfil 1")
+![Pantalla de inicio](Capturas/Perfil2.JPG "Pantalla de perfil 2")
+
+## BackEnd
+En cuanto al manejo de datos, se manejan solo conexiones y operaciones con bases de datos, con una metodologia de programacion orientada a objetos. Esto siendo para que, aun con el objetivo de utilizar un solo sistema manejador de bases de datos, se pueda adaptar si se desea migrar a otra plataforma, o inclusive usar otras en conjunto.  
+Todas las operaciones siendo controladas por medio de procedimientos almacenados, dando otra capa de seguridad y usabilidad a la aplicacion.
+
+**Pantallas**
+![Pantalla de inicio](Capturas/BackEnd1.JPG "Conexion")
+![Pantalla de inicio](Capturas/BackEnd2.JPG "Ejemplo de Query")
+
+## Base de datos
+Para el manejador de la base de datos, se utiliza MySql. Utilizado este por su compatibilidad con varios sistemas operativos (Windows y variantes de Unix en especifico).
+
+**Pantalla Ejemplo**
+![Pantalla de inicio](Capturas/BaseDeDatos.JPG "Ejemplo de procedimiento")
+
+
+# Implementacion. Optimizacion
+## Reduccion de archivos
+Para darle funcionalidad a una pagina web, se implementan archivos que se ejecutan del lado del cliente. Si hay muchos archivos al cargar una pagina, esta se alenta.
+Para mejorar el rendimiento, modulos puestos en otros archivos se pueden poner en uno solo o en una cantidad menor. De esta forma, la pagina se renderiza mas rapido.
+
+**Ejemplo de velocidad**
+![Pantalla de inicio](Capturas/Rendimiento/OptimizacionJavascriptLigero.JPG "Carga menor")
+![Pantalla de inicio](Capturas/Rendimiento/OptimizacionJavascriptLigeroCodigo.JPG "Codigo optimizado")
+![Pantalla de inicio](Capturas/Rendimiento/OptimizacionJavascriptPesado.JPG "Carga mayor")
+![Pantalla de inicio](Capturas/Rendimiento/OptimizacionJavascriptPesadoCodigo.JPG "Codigo no optimizado")
+
+## Llamadas en paralelo (No comprobado)  
+Un punto no comprobado es la optimizacion utilizando llamadas paralelas de archivos. Esto, utilizando un archivo de un patrocinado (CDN). Debido a la minima cantidad de archivos en utilidad, este punto no se puede comprobar con facilidad.
+
+
+# Conclusion y trabajo futuro
+Aunque hay ya un gran avance para reconocer las actividades y lugares comunes en los cuales participan las personas, aun es necesario implementar algoritmos/modulos que ayuden a prevenir la redundancia de datos. O bien, dar a los usuarios los lugares y actividades veridicas de otras personas definido en cuanto a "feedback" de quienes utilicen la informacion.
+
+Aun asi, la idea y utilidad minima ya esta definida y usable.
+
 
 # Bibliografia  
 1. Michelone, M. L. (2016, March 28). Los lenguajes de programación más demandados en 2016. Retrieved September 07, 2016, from https://www.unocero.com/2016/03/28/los-nueve-lenguajes-mas-demandados-en-el-2016/  

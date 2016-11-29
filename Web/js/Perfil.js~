@@ -1,3 +1,17 @@
+function w3_open() {
+    document.getElementById("mySidenav").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+    document.getElementById("mySidenav").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+}
+
+$(document).ready(function() {
+    $('#Navegacion').load('/ITWACHO/Web/Partes/Navegacion.html');
+});
+
 $(document).ready(function() {
 
     // Funcion para obtener el valor de un paramtero dentro de la URL.
@@ -89,7 +103,7 @@ $(document).ready(function() {
         // Obtener el lugar a insertar.
         let nombreLugar = $("#NombreLugar").val();
 
-        // Llamada ajax para pedir busqueda de persona.
+        // Llamada ajax para insertar lugar al ente.
         $.ajax({
             type: "GET",
             url: "/ITWACHO/Web/php/InsertEnteLugar.php",
@@ -99,6 +113,26 @@ $(document).ready(function() {
             }, success: function (data) {
                 // Agregar nuevo elemento al elemento padre.
                 $("#Lugares").append("<li>" + nombreLugar + "</li>");
+            }, error: function (data) {
+            }
+        });
+    });
+
+    // Evento para llenar otra actividad para un ente.
+    $("#AgregarActividad").click(function(e) {
+        // Obtener la actividad a insertar.
+        let nombreActividad = $("#NombreActividad").val();
+
+        // Llamada ajax para insertar actividad al ente.
+        $.ajax({
+            type: "GET",
+            url: "/ITWACHO/Web/php/InsertEnteActividad.php",
+            data: {
+                IdEnte: idEnte
+                , NombreActividad: nombreActividad
+            }, success: function (data) {
+                // Agregar nuevo elemento al elemento padre.
+                $("#Actividades").append("<li>" + nombreActividad + "</li>");
             }, error: function (data) {
             }
         });
